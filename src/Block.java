@@ -39,4 +39,8 @@ public class Block {
         return String.format(data);
     }
 
+    public String getHash() {
+        return hash;
+    }
+
 }

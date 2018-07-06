@@ -13,6 +13,10 @@ public class BlockMatrix {
         this.blockData = new Block[dimension][dimension];
         this.rowHashes = new String[dimension];
         this.columnHashes = new String[dimension];
+        for (int i = 0; i < dimension; i++) {
+            updateRowHash(i);
+            updateColumnHash(i);
+        }
     }
 
     public void add(Block block) {
@@ -60,25 +64,33 @@ public class BlockMatrix {
 
     //Uses data in each block in the row except those that are null and those in the diagonal
     private void updateRowHash(int row) {
+        rowHashes[row] =  calculateRowHash(row);
+    }
+
+
+    //Uses data in each block in the column except those that are null and those in the diagonal
+    private void updateColumnHash(int column) {
+        columnHashes[column] = calculateColumnHash(column);
+    }
+
+    public String calculateRowHash(int row) {
         StringBuilder sb = new StringBuilder();
         for (int column = 0; column < dimension; column++) {
             if (row != column && blockData[row][column] != null) {
                 sb.append(blockData[row][column].getData());
             }
         }
-        rowHashes[row] =  StringUtil.applySha256(sb.toString());
+        return StringUtil.applySha256(sb.toString());
     }
 
-
-    //Uses data in each block in the column except those that are null and those in the diagonal
-    private void updateColumnHash(int column) {
+    public String calculateColumnHash(int column) {
         StringBuilder sb = new StringBuilder();
         for (int row = 0; row < dimension; row++) {
             if (row != column && blockData[row][column] != null) {
                 sb.append(blockData[row][column].getData());
             }
         }
-        columnHashes[column] = StringUtil.applySha256(sb.toString());
+        return StringUtil.applySha256(sb.toString());
     }
 
     public void printRowHashes() {
@@ -105,6 +117,7 @@ public class BlockMatrix {
         return getBlock(blockNumber).getData();
     }
 
+    // helper method to get the row of a block given a block number
     private int getBlockRowIndex(int blockNumber) {
         if (blockNumber % 2 == 0) { // Block number is even
             int s = (int) Math.floor(Math.sqrt(blockNumber));
@@ -118,6 +131,7 @@ public class BlockMatrix {
         }
     }
 
+    //helper method to get the column of a block given a block number
     private int getBlockColumnIndex(int blockNumber) {
         if (blockNumber % 2 == 0) { // Block number is even
             int s = (int) Math.floor(Math.sqrt(blockNumber));
@@ -131,4 +145,19 @@ public class BlockMatrix {
         }
     }
 
+    public int getInputCount() {
+        return inputCount;
+    }
+
+    public String[] getRowHashes() {
+        return rowHashes;
+    }
+
+    public String[] getColumnHashes() {
+        return columnHashes;
+    }
+
+    public int getDimension() {
+        return dimension;
+    }
 }
