@@ -160,4 +160,14 @@ public class BlockMatrix {
     public int getDimension() {
         return dimension;
     }
+
+    public void deleteBlock(int blockNumber, int difficulty) {
+        int row = getBlockRowIndex(blockNumber);
+        int column = getBlockColumnIndex(blockNumber);
+        Block deleteBlock = new Block("DELETED");
+        deleteBlock.mineBlock(difficulty);
+        blockData[row][column]  = deleteBlock;
+        updateRowHash(row);
+        updateColumnHash(column);
+    }
 }

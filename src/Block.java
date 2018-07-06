@@ -43,4 +43,9 @@ public class Block {
         return hash;
     }
 
+    public void delete() {
+        data = "DELETED";
+        hash = calculateHash();
+    }
+
 }

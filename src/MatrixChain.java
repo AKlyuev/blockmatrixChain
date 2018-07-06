@@ -1,11 +1,15 @@
 import java.sql.SQLOutput;
+import java.security.Security;
 
 public class MatrixChain {
 
     private static BlockMatrix bm;
     public static int difficulty = 3;
+    public static Wallet walletA;
+    public static Wallet walletB;
 
     public static void main(String[] args) {
+        /**
         bm = new BlockMatrix(5);
 
         //add our blocks to the BlockMatrix:
@@ -22,8 +26,27 @@ public class MatrixChain {
         System.out.println("Trying to mine block 3... ");
         bm.getBlock(3).mineBlock(difficulty);
 
+        bm.deleteBlock(2, difficulty);
+
         System.out.println("\nOur block matrix:\n" + bm);
         System.out.println("\nMatrix is valid: " + isMatrixValid());
+        **/
+
+        //Setup Bouncey castle as a Security Provider
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        //Create the new wallets
+        walletA = new Wallet();
+        walletB = new Wallet();
+        //Test public and private keys
+        System.out.println("Private and public keys:");
+        System.out.println(StringUtil.getStringFromKey(walletA.privateKey));
+        System.out.println(StringUtil.getStringFromKey(walletA.publicKey));
+        //Create a test transaction from WalletA to walletB
+        Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);
+        transaction.generateSignature(walletA.privateKey);
+        //Verify the signature works and verify it from the public key
+        System.out.println("Is signature verified");
+        System.out.println(transaction.verifiySignature());
 
     }
 
@@ -38,7 +61,7 @@ public class MatrixChain {
             currentBlock = bm.getBlock(i);
             //compare registered hash and calculated hash:
             if (!currentBlock.getHash().equals(currentBlock.calculateHash())) {
-                System.out.println("Hashes for Block " + i + "not equal (first instance of block with unequal hashes, there may be more)");
+                System.out.println("Hashes for Block " + i + " not equal (first instance of block with unequal hashes, there may be more)");
                 return false;
             }
             //check if hash is solved
