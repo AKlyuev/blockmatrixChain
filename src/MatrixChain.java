@@ -1,10 +1,14 @@
 import java.sql.SQLOutput;
 import java.security.Security;
+import java.util.HashMap;
 
 public class MatrixChain {
 
     private static BlockMatrix bm;
+    public static HashMap<String,TransactionOutput> UTXOs = new HashMap<>();
+
     public static int difficulty = 3;
+    public static float minimumTransaction = 0.1f;
     public static Wallet walletA;
     public static Wallet walletB;
 
