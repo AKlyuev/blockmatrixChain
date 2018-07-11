@@ -1,8 +1,12 @@
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Block {
+
     private String hash;
     private String data;
+    public String merkleRoot;
+    public ArrayList<Transaction> transactions = new ArrayList<>();
     private long timeStamp; //number of milliseconds since 1/1/1970
     private int nonce;
 

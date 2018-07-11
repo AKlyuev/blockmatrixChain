@@ -13,29 +13,35 @@ public class MatrixChain {
     public static Wallet walletB;
 
     public static void main(String[] args) {
-        /**
+
         bm = new BlockMatrix(5);
 
         //add our blocks to the BlockMatrix:
 
         bm.add(new Block("First"));
+        /**
         System.out.println("Trying to mine block 1... ");
         bm.getBlock(1).mineBlock(difficulty);
+         **/
 
         bm.add(new Block("Second"));
+        /**
         System.out.println("Trying to mine block 2... ");
         bm.getBlock(2).mineBlock(difficulty);
+         **/
 
         bm.add(new Block("Third"));
+        /**
         System.out.println("Trying to mine block 3... ");
         bm.getBlock(3).mineBlock(difficulty);
+         **/
 
-        bm.deleteBlock(2, difficulty);
+        bm.deleteBlock(2 /**,difficulty**/);
 
         System.out.println("\nOur block matrix:\n" + bm);
         System.out.println("\nMatrix is valid: " + isMatrixValid());
-        **/
 
+    /**
         //Setup Bouncey castle as a Security Provider
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
         //Create the new wallets
@@ -51,7 +57,7 @@ public class MatrixChain {
         //Verify the signature works and verify it from the public key
         System.out.println("Is signature verified");
         System.out.println(transaction.verifiySignature());
-
+    **/
     }
 
 
@@ -68,11 +74,13 @@ public class MatrixChain {
                 System.out.println("Hashes for Block " + i + " not equal (first instance of block with unequal hashes, there may be more)");
                 return false;
             }
+            /**
             //check if hash is solved
             if(!currentBlock.getHash().substring( 0, difficulty).equals(hashTarget)) {
                 System.out.println("Block " + i +  " hasn't been mined (first instance of unmined block, there may be more)");
                 return false;
             }
+             **/
         }
 
         //check if all row hashes are valid
@@ -89,6 +97,12 @@ public class MatrixChain {
                 System.out.println("Column hashes for row " + i +  " not equal (first instance of column with unequal hashes, there may be more");
                 return false;
             }
+        }
+
+        //check if all deletions have been valid
+        if (!bm.getDeletionValidity()) {
+            System.out.println("One or more deletions were not valid and altered more than one row and column hash");
+            return false;
         }
 
         return true;
