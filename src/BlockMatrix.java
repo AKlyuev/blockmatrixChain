@@ -8,7 +8,6 @@ public class BlockMatrix {
     private Block[][] blockData;
     private String[] rowHashes;
     private String[] columnHashes;
-    private String rowColHashType; // configurable option to change how row and column hashes are calculated
 
     public BlockMatrix(int dimension) {
         if (dimension < 2) {
@@ -18,7 +17,6 @@ public class BlockMatrix {
         this.blockData = new Block[dimension][dimension];
         this.rowHashes = new String[dimension];
         this.columnHashes = new String[dimension];
-        this.rowColHashType = "block data";
         this.deletionValidity = true;
         for (int i = 0; i < dimension; i++) {
             updateRowHash(i);
@@ -57,17 +55,17 @@ public class BlockMatrix {
         return blockData[getBlockRowIndex(blockNumber)][getBlockColumnIndex(blockNumber)];
     }
 
+    /**
     public String getBlockData(int blockNumber) {
         return getBlock(blockNumber).getData();
     }
+**/
 
-    public void deleteBlock(int blockNumber /**, int difficulty**/) {
+    /**
+    public void deleteBlock(int blockNumber) {
         int row = getBlockRowIndex(blockNumber);
         int column = getBlockColumnIndex(blockNumber);
         Block deleteBlock = new Block("DELETED");
-        /**
-         deleteBlock.mineBlock(difficulty);
-         **/
         blockData[row][column]  = deleteBlock;
         String[] prevRowHashes = this.getRowHashes();
         String[] prevColumnnHashes = this.getColumnHashes();
@@ -80,22 +78,16 @@ public class BlockMatrix {
             deletionValidity = false; // This might be better as something that throws an exception.
         }
     }
+    **/
 
-    public void setHashType(String hashType) {
-        if (hashType.equals("block data")) {
-            this.rowColHashType = "block data";
-        } else if (hashType.equals("block hash")) {
-            this.rowColHashType = "block hash";
-        } else {
-            System.out.println("Invalid hash type. Please select either 'block data' or 'block hash'.");
-        }
-    }
 
+    /**
     public void fillDiagonalZeros() {
         for (int i = 0; i < dimension; i++) {
             blockData[i][i] = new Block("0");
         }
     }
+    **/
 
     //Uses data in each block in the row except those that are null and those in the diagonal
     private void updateRowHash(int row) {
@@ -109,40 +101,20 @@ public class BlockMatrix {
 
     public String calculateRowHash(int row) {
         StringBuilder sb = new StringBuilder();
-        if (rowColHashType.equals("block data")) {
-            for (int column = 0; column < dimension; column++) {
-                if (row != column && blockData[row][column] != null) {
-                    sb.append(blockData[row][column].getData());
-                }
+        for (int column = 0; column < dimension; column++) {
+            if (row != column && blockData[row][column] != null) {
+                sb.append(blockData[row][column].getHash());
             }
-        } else if (rowColHashType.equals("block hash")) {
-            for (int column = 0; column < dimension; column++) {
-                if (row != column && blockData[row][column] != null) {
-                    sb.append(blockData[row][column].getHash());
-                }
-            }
-        } else {
-            System.out.println("Hash Type invalid");
         }
         return StringUtil.applySha256(sb.toString());
     }
 
     public String calculateColumnHash(int column) {
         StringBuilder sb = new StringBuilder();
-        if (rowColHashType.equals("block data")) {
-            for (int row = 0; row < dimension; row++) {
-                if (row != column && blockData[row][column] != null) {
-                    sb.append(blockData[row][column].getData());
-                }
+        for (int row = 0; row < dimension; row++) {
+            if (row != column && blockData[row][column] != null) {
+                sb.append(blockData[row][column].getHash());
             }
-        } else if (rowColHashType.equals("block hash")) {
-            for (int row = 0; row < dimension; row++) {
-                if (row != column && blockData[row][column] != null) {
-                    sb.append(blockData[row][column].getData());
-                }
-            }
-        }  else {
-            System.out.println("Hash Type invalid");
         }
 
         return StringUtil.applySha256(sb.toString());

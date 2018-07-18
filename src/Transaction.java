@@ -39,14 +39,14 @@ public class Transaction {
     }
 
     //Verifies the data we signed hasnt been tampered with
-    public boolean verifiySignature() {
+    public boolean verifySignature() {
         String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(recipient) + Float.toString(value)	;
         return StringUtil.verifyECDSASig(sender, data, signature);
     }
 
     public boolean processTransaction() {
 
-        if (verifiySignature() == false) {
+        if (verifySignature() == false) {
             System.out.println("Transaction Signature failed to verify");
             return false;
         }
