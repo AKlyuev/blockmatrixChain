@@ -1,4 +1,9 @@
+import com.google.gson.GsonBuilder;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class BlockMatrix {
 
@@ -8,6 +13,7 @@ public class BlockMatrix {
     private Block[][] blockData;
     private String[] rowHashes;
     private String[] columnHashes;
+    private ArrayList<Integer> blocksWithModifiedData;
 
     public BlockMatrix(int dimension) {
         if (dimension < 2) {
@@ -18,12 +24,14 @@ public class BlockMatrix {
         this.rowHashes = new String[dimension];
         this.columnHashes = new String[dimension];
         this.deletionValidity = true;
+        blocksWithModifiedData = new ArrayList<>();
         for (int i = 0; i < dimension; i++) {
             updateRowHash(i);
             updateColumnHash(i);
         }
     }
 
+    //adds a block to our blockmatrix
     public void add(Block block) {
         inputCount++;
         if (inputCount > (dimension* dimension) - dimension) { //no more space in the matrix
@@ -55,39 +63,34 @@ public class BlockMatrix {
         return blockData[getBlockRowIndex(blockNumber)][getBlockColumnIndex(blockNumber)];
     }
 
-    /**
-    public String getBlockData(int blockNumber) {
-        return getBlock(blockNumber).getData();
+    //gets all transactions in a certain block
+    public ArrayList<Transaction> getBlockTransactions(int blockNumber) {
+        return getBlock(blockNumber).getTransactions();
     }
-**/
 
-    /**
-    public void deleteBlock(int blockNumber) {
+    public String getBlockData(int blockNumber) {
+        String transactionsJson = new GsonBuilder().setPrettyPrinting().create().toJson(getBlock(blockNumber).getTransactions());
+        return transactionsJson;
+    }
+
+    //the "delete" function, which will overwrite any message info passed in along with the transaction for every transaction in the block
+    public void clearInfoInBlock(int blockNumber) {
+        this.blocksWithModifiedData.add(blockNumber);
         int row = getBlockRowIndex(blockNumber);
         int column = getBlockColumnIndex(blockNumber);
-        Block deleteBlock = new Block("DELETED");
-        blockData[row][column]  = deleteBlock;
-        String[] prevRowHashes = this.getRowHashes();
-        String[] prevColumnnHashes = this.getColumnHashes();
+        getBlock(blockNumber).clearInfoInTransactionsInBlock();
+        String[] prevRowHashes = this.getRowHashes().clone();
+        String[] prevColumnHashes = this.getColumnHashes().clone();
         updateRowHash(row);
         updateColumnHash(column);
-        String[] newRowHashes = this.getRowHashes();
-        String[] newColumnHashes = this.getColumnHashes();
-        if (!checkValidDeletion(prevRowHashes, prevColumnnHashes, newRowHashes, newColumnHashes)) {
+        String[] newRowHashes = this.getRowHashes().clone();
+        String[] newColumnHashes = this.getColumnHashes().clone();
+        if (!checkValidDeletion(prevRowHashes, prevColumnHashes, newRowHashes, newColumnHashes)) {
             System.out.println("Bad deletion, more than one row and column hash affected");
             deletionValidity = false; // This might be better as something that throws an exception.
         }
     }
-    **/
 
-
-    /**
-    public void fillDiagonalZeros() {
-        for (int i = 0; i < dimension; i++) {
-            blockData[i][i] = new Block("0");
-        }
-    }
-    **/
 
     //Uses data in each block in the row except those that are null and those in the diagonal
     private void updateRowHash(int row) {
@@ -148,23 +151,27 @@ public class BlockMatrix {
         }
     }
 
+    //tests to make sure only one row hash and one column hash have been modified. If not, then integrity is likely compromised
     private boolean checkValidDeletion(String[] prevRow, String[] prevCol, String[] newRow, String[] newCol) {
         int numRowChanged = 0;
         int numColChanged = 0;
         for (int i = 0; i < dimension; i++) {
-            if (prevRow[i] != newRow[i]) {
+            if (!prevRow[i].equals(newRow[i])) {
                 numRowChanged++;
             }
-            if (prevCol[i] != newCol[i]) {
+            if (!prevCol[i].equals(newCol[i])) {
                 numColChanged++;
             }
         }
-        if (numRowChanged > 1 || numColChanged > 1) {
+        System.out.println("numRowChanged = " + numRowChanged);
+        System.out.println("numColChanged = " + numColChanged);
+        if (numRowChanged != 1 || numColChanged != 1) {
             return false;
         }
         return true;
     }
 
+    //gets the number of blocks that have been entered
     public int getInputCount() {
         return inputCount;
     }
@@ -185,6 +192,12 @@ public class BlockMatrix {
         return this.deletionValidity;
     }
 
+    //returns a list of blocks for which data has been modified
+    public ArrayList<Integer> getBlocksWithModifiedData() {
+        Collections.sort(this.blocksWithModifiedData);
+        return this.blocksWithModifiedData;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Block[] row: blockData) {
@@ -195,6 +208,7 @@ public class BlockMatrix {
     }
 
     public void printRowHashes() {
+        System.out.println("\nRow hashes:");
         System.out.println("----------------------------------------------------------------");
         for (int i = 0; i < rowHashes.length; i++) {
             System.out.println(rowHashes[i]);
@@ -203,11 +217,17 @@ public class BlockMatrix {
     }
 
     public void printColumnHashes() {
+        System.out.println("\nColumn hashes:");
         System.out.println("----------------------------------------------------------------");
         for (int i = 0; i < columnHashes.length; i++) {
             System.out.println(columnHashes[i]);
         }
         System.out.println("----------------------------------------------------------------\n");
+    }
+
+    public void printHashes() {
+        printRowHashes();
+        printColumnHashes();
     }
 
 }

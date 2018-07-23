@@ -7,6 +7,7 @@ public class Transaction {
     public PublicKey sender; //senders address/public key
     public PublicKey recipient; // Recipients address/public key.
     public float value;
+    private String info;
     public byte[] signature; // Prevents other people from spending funds in our wallet
 
     public ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
@@ -15,11 +16,12 @@ public class Transaction {
     private static int sequence = 0; // a rough count of how many transactions have been generated.
 
     // Constructor:
-    public Transaction(PublicKey from, PublicKey to, float value,  ArrayList<TransactionInput> inputs) {
+    public Transaction(PublicKey from, PublicKey to, float value,  ArrayList<TransactionInput> inputs, String info) {
         this.sender = from;
         this.recipient = to;
         this.value = value;
         this.inputs = inputs;
+        this.info = info;
     }
 
     // This Calculates the transaction hash (which will be used as its Id)
@@ -28,7 +30,7 @@ public class Transaction {
         return StringUtil.applySha256(
                 StringUtil.getStringFromKey(sender) +
                         StringUtil.getStringFromKey(recipient) +
-                        Float.toString(value) + sequence
+                        Float.toString(value) + info + sequence
         );
     }
 
@@ -99,6 +101,30 @@ public class Transaction {
             total += o.value;
         }
         return total;
+    }
+
+    public void clearInfo() {
+        this.info = "CLEARED";
+        this.transactionId =  calculateHash();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nTransaction Details");
+        sb.append("\ntransactionId: ");
+        sb.append(transactionId);
+        sb.append("\nsender: ");
+        sb.append(sender);
+        sb.append("\nrecipient: ");
+        sb.append(recipient);
+        sb.append("\nvalue: ");
+        sb.append(value);
+        sb.append("\ninfo: ");
+        sb.append(info);
+        sb.append("\nsignature: ");
+        sb.append(signature);
+        return sb.toString();
     }
 
 }

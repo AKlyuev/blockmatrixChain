@@ -45,7 +45,7 @@ public class Wallet {
     }
 
     //Generates and returns a new transaction from this wallet.
-    public Transaction sendFunds(PublicKey recipient, float value) {
+    public Transaction sendFunds(PublicKey recipient, float value, String info) {
         if(getBalance() < value) { //gather balance and check funds.
             System.out.println("#Not Enough funds to send transaction. Transaction Discarded.");
             return null;
@@ -61,7 +61,7 @@ public class Wallet {
             if(total > value) break;
         }
 
-        Transaction newTransaction = new Transaction(publicKey, recipient , value, inputs);
+        Transaction newTransaction = new Transaction(publicKey, recipient , value, inputs, info);
         newTransaction.generateSignature(privateKey);
 
         for(TransactionInput input: inputs){

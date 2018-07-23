@@ -4,8 +4,8 @@ import java.util.Date;
 public class Block {
 
     private String hash;
-    public String merkleRoot;
-    public ArrayList<Transaction> transactions = new ArrayList<>();
+    private String merkleRoot;
+    private ArrayList<Transaction> transactions = new ArrayList<>();
     private long timeStamp; //number of milliseconds since 1/1/1970
     private int nonce;
     private boolean genesis; // whether or not this block is the genesis block, by default it is not
@@ -24,22 +24,13 @@ public class Block {
     }
 
     public String calculateHash() {
-        String calculatedhash = StringUtil.applySha256(
-                        Long.toString(timeStamp) +
-                                Integer.toString(nonce) +
-                                merkleRoot
-                        );
-        return calculatedhash;
+        return StringUtil.applySha256(Long.toString(timeStamp) + Integer.toString(nonce) + merkleRoot); // calculates and returns hash
     }
 
-    public void mineBlock(int difficulty) {
+    public void mineBlock() {
         merkleRoot = StringUtil.getMerkleRoot(transactions);
-        String target = StringUtil.getDifficultyString(difficulty); //Create a string with difficulty * "0"
-        while(!hash.substring( 0, difficulty).equals(target)) {
-            nonce ++;
-            hash = calculateHash();
-        }
-        System.out.println("Block Mined!!! : " + hash);
+        hash = calculateHash();
+        System.out.println("Block Mined: " + hash);
     }
 
     //Add transactions to this block
@@ -59,24 +50,31 @@ public class Block {
         return true;
     }
 
-
-    /*public String getData() {
-        return data;
+    public ArrayList<Transaction> getTransactions() {
+        return this.transactions;
     }
-
-    public String toString() {
-        return String.format(data);
-    }*/
-
-
 
     public String getHash() {
         return hash;
     }
 
-    public void delete() {
-        //data = "DELETED";
-        hash = calculateHash();
+    public void printBlockTransactions() {
+        System.out.println("\nBlock transactions: ");
+        int count = 1;
+        for (Transaction t: transactions) {
+            System.out.println("Info for transaction " + count + " in this block:");
+            System.out.println(t.toString());
+            count++;
+        }
+
+    }
+
+    public void clearInfoInTransactionsInBlock() {
+        for (Transaction t: transactions) {
+            t.clearInfo();
+        }
+        merkleRoot = StringUtil.getMerkleRoot(transactions);
+        this.hash = calculateHash();
     }
 
 }

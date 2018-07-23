@@ -1,4 +1,4 @@
-import java.sql.SQLOutput;
+
 import java.security.Security;
 import java.util.HashMap;
 
@@ -25,45 +25,52 @@ public class MatrixChain {
         walletB = new Wallet();
         Wallet coinbase = new Wallet();
 
-        //create genesis transaction, which sends 100 NoobCoin to walletA:
-        genesisTransaction = new Transaction(coinbase.publicKey, walletA.publicKey, 100f, null);
+        //create genesis transaction, which sends 100 coins to walletA:
+        genesisTransaction = new Transaction(coinbase.publicKey, walletA.publicKey, 100f, null, null);
         genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction
         genesisTransaction.transactionId = "0"; //manually set the transaction id
         genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.recipient, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
         UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0)); //its important to store our first transaction in the UTXOs list.
 
+
+
         System.out.println("Creating and Mining Genesis block... ");
-        //Block genesis = new Block("0");
         Block genesis = new Block(true);
         genesis.addTransaction(genesisTransaction);
         addBlock(genesis);
 
         //testing
-        //Block block1 = new Block(genesis.hash);
-        Block block1 = new Block();
+        Block block2 = new Block();
         System.out.println("\nWalletA's balance is: " + walletA.getBalance());
         System.out.println("\nWalletA is Attempting to send funds (40) to WalletB...");
-        block1.addTransaction(walletA.sendFunds(walletB.publicKey, 40f));
-        addBlock(block1);
-        System.out.println("\nWalletA's balance is: " + walletA.getBalance());
-        System.out.println("WalletB's balance is: " + walletB.getBalance());
-
-        //Block block2 = new Block(block1.hash);
-        Block block2 = new Block();
-        System.out.println("\nWalletA Attempting to send more funds (1000) than it has...");
-        block2.addTransaction(walletA.sendFunds(walletB.publicKey, 1000f));
+        block2.addTransaction(walletA.sendFunds(walletB.publicKey, 40f, "Here is 40 coins!"));
         addBlock(block2);
         System.out.println("\nWalletA's balance is: " + walletA.getBalance());
         System.out.println("WalletB's balance is: " + walletB.getBalance());
 
-        //Block block3 = new Block(block2.hash);
         Block block3 = new Block();
-        System.out.println("\nWalletB is Attempting to send funds (20) to WalletA...");
-        block3.addTransaction(walletB.sendFunds( walletA.publicKey, 20));
+        System.out.println("\nWalletA Attempting to send more funds (1000) than it has...");
+        block3.addTransaction(walletA.sendFunds(walletB.publicKey, 1000f, "This might be too many..."));
+        addBlock(block3);
         System.out.println("\nWalletA's balance is: " + walletA.getBalance());
         System.out.println("WalletB's balance is: " + walletB.getBalance());
 
-        System.out.println(isMatrixValid());
+        Block block4 = new Block();
+        System.out.println("\nWalletB is Attempting to send funds (20) to WalletA...");
+        block4.addTransaction(walletB.sendFunds( walletA.publicKey, 20, "This is for the bananas!"));
+        addBlock(block4);
+        System.out.println("\nWalletA's balance is: " + walletA.getBalance());
+        System.out.println("WalletB's balance is: " + walletB.getBalance());
+
+        bm.clearInfoInBlock(4);
+        bm.clearInfoInBlock(2);
+
+
+        System.out.println(bm.getBlocksWithModifiedData()); // Tells you which blocks have been modified
+
+        System.out.println("\nMatrix is Valid: " + isMatrixValid());
+
+        System.out.println(bm.toString());
 
     }
 
@@ -74,10 +81,14 @@ public class MatrixChain {
         String hashTarget = new String(new char[difficulty]).replace('\0', '0');
 
         //loop through matrix to check block hashes:
-        for (int i = 1; i < bm.getInputCount(); i++) {
+        for (int i = 2; i < bm.getInputCount(); i++) { // start at 1 because we want to skip the genesis transaction
             currentBlock = bm.getBlock(i);
+            HashMap<String,TransactionOutput> tempUTXOs = new HashMap<String,TransactionOutput>(); //a temporary working list of unspent transactions at a given block state.
+            tempUTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
             //compare registered hash and calculated hash:
             if (!currentBlock.getHash().equals(currentBlock.calculateHash())) {
+                System.out.println("currentBlock.getHash() = " + currentBlock.getHash());
+                System.out.println("currentBlock.calculateHash() = " + currentBlock.calculateHash());
                 System.out.println("Hashes for Block " + i + " not equal (first instance of block with unequal hashes, there may be more)");
                 return false;
             }
@@ -88,6 +99,52 @@ public class MatrixChain {
                 return false;
             }
              **/
+
+            //loop through blockchains transactions:
+            TransactionOutput tempOutput;
+            for(int t=0; t <currentBlock.getTransactions().size(); t++) {
+                Transaction currentTransaction = currentBlock.getTransactions().get(t);
+
+                if(!currentTransaction.verifySignature()) {
+                    System.out.println("#Signature on Transaction(" + t + ") is Invalid");
+                    return false;
+                }
+                if(currentTransaction.getInputsValue() != currentTransaction.getOutputsValue()) {
+                    System.out.println("#Inputs are not equal to outputs on Transaction(" + t + ")");
+                    return false;
+                }
+
+                for(TransactionInput input: currentTransaction.inputs) {
+                    tempOutput = tempUTXOs.get(input.transactionOutputId);
+
+                    if(tempOutput == null) {
+                        System.out.println("#Referenced input on Transaction(" + t + ") is Missing");
+                        return false;
+                    }
+
+                    if(input.UTXO.value != tempOutput.value) {
+                        System.out.println("#Referenced input Transaction(" + t + ") value is Invalid");
+                        return false;
+                    }
+
+                    tempUTXOs.remove(input.transactionOutputId);
+                }
+
+                for(TransactionOutput output: currentTransaction.outputs) {
+                    tempUTXOs.put(output.id, output);
+                }
+
+                if( currentTransaction.outputs.get(0).recipient != currentTransaction.recipient) {
+                    System.out.println("#Transaction(" + t + ") output recipient is not who it should be");
+                    return false;
+                }
+                if( currentTransaction.outputs.get(1).recipient != currentTransaction.sender) {
+                    System.out.println("#Transaction(" + t + ") output 'change' is not sent to sender.");
+                    return false;
+                }
+
+            }
+
         }
 
         //check if all row hashes are valid
@@ -116,7 +173,7 @@ public class MatrixChain {
     }
 
     public static void addBlock(Block newBlock) {
-        //newBlock.mineBlock(difficulty);
+        newBlock.mineBlock();
         bm.add(newBlock);
     }
 
