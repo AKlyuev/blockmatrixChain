@@ -64,6 +64,9 @@ public class BlockMatrix {
             updateRowHash(i);
             updateColumnHash(j);
         }
+        for (Transaction t: block.getTransactions()) {
+            t.setBlockNumber(inputCount);
+        }
     }
 
     public Block getBlock(int blockNumber) {
@@ -170,8 +173,6 @@ public class BlockMatrix {
                 numColChanged++;
             }
         }
-        System.out.println("numRowChanged = " + numRowChanged);
-        System.out.println("numColChanged = " + numColChanged);
         if (numRowChanged != 1 || numColChanged != 1) {
             return false;
         }
@@ -237,6 +238,7 @@ public class BlockMatrix {
         printColumnHashes();
     }
 
+    //Creates, mines, and adds the genesis block to the blockmatrix
     public void generate(Wallet wallet, float value) {
         Wallet coinbase = new Wallet();
         //create genesis transaction, which sends coins to walletA:
@@ -253,28 +255,29 @@ public class BlockMatrix {
         addBlock(genesis);
     }
 
+    //mines and adds a block
     public void addBlock(Block newBlock) {
         newBlock.mineBlock();
         add(newBlock);
     }
 
+    //sets up our security provider so we can create our wallets
     public void setUpSecurity() {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
     }
 
+    //sees if our matrix has maintained its security, or if it has been tampered with
     public Boolean isMatrixValid() {
         Block currentBlock;
         String hashTarget = new String(new char[difficulty]).replace('\0', '0');
+        HashMap<String, TransactionOutput> tempUTXOs = new HashMap<String, TransactionOutput>(); //a temporary working list of unspent transactions at a given block state.
+        tempUTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
 
         //loop through matrix to check block hashes:
-        for (int i = 2; i < getInputCount(); i++) { // start at 1 because we want to skip the genesis transaction
+        for (int i = 2; i < getInputCount(); i++) { // start at 2 because we want to skip the genesis transaction/block
             currentBlock = getBlock(i);
-            HashMap<String, TransactionOutput> tempUTXOs = new HashMap<String, TransactionOutput>(); //a temporary working list of unspent transactions at a given block state.
-            tempUTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
             //compare registered hash and calculated hash:
             if (!currentBlock.getHash().equals(currentBlock.calculateHash())) {
-                System.out.println("currentBlock.getHash() = " + currentBlock.getHash());
-                System.out.println("currentBlock.calculateHash() = " + currentBlock.calculateHash());
                 System.out.println("Hashes for Block " + i + " not equal (first instance of block with unequal hashes, there may be more)");
                 return false;
             }
@@ -304,7 +307,7 @@ public class BlockMatrix {
                     tempOutput = tempUTXOs.get(input.transactionOutputId);
 
                     if(tempOutput == null) {
-                        System.out.println("#Referenced input on Transaction(" + t + ") is Missing");
+                        System.out.println("#Referenced input on Transaction(" + t + ") in Block(" + i + ") is Missing");
                         return false;
                     }
 

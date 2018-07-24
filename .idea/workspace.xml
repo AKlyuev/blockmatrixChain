@@ -7,27 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c888c975-9099-4251-98a6-0380609fbdd2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/ank20.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/ank20.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit_junit_4_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blockmatrix.iml" beforeDir="false" afterPath="$PROJECT_DIR$/blockmatrix.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/blockmatrix_jar/blockmatrix.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/blockmatrix_jar/blockmatrix.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/blockmatrix/Block.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/blockmatrix/BlockMatrix.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/blockmatrix/MatrixChain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/blockmatrix/StringUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/blockmatrix/Transaction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/blockmatrix/TransactionInput.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/blockmatrix/TransactionOutput.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/blockmatrix/Wallet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BlockMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/BlockMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MatrixChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/MatrixChain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/StringUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TransactionInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/TransactionInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TransactionOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/TransactionOutput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/Wallet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/blockmatrix_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/blockmatrix_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blockmatrix/BlockMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/BlockMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blockmatrix/MatrixChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/MatrixChain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/blockmatrix/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/blockmatrix/Transaction.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,21 +20,45 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/blockmatrixRough$MatrixChain__1_.ic" NAME="MatrixChain (1) Coverage Results" MODIFIED="1532445255744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>blockmatrix.*</FILTER>
+    </SUITE>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="StringUtil.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/blockmatrix/StringUtil.java">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-840">
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            </state>
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="BlockMatrix.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BlockMatrix.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/blockmatrix/BlockMatrix.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="350" lean-forward="true" selection-start-line="350" selection-end-line="350" />
+            <state relative-caret-position="434">
+              <caret line="290" lean-forward="true" selection-start-line="290" selection-end-line="290" />
               <folding>
-                <element signature="e#10200#10201#0" expanded="true" />
-                <element signature="e#10294#10295#0" expanded="true" />
+                <element signature="e#4367#4368#0" expanded="true" />
+                <element signature="e#4422#4423#0" expanded="true" />
+                <element signature="e#4568#4569#0" expanded="true" />
+                <element signature="e#4634#4635#0" expanded="true" />
+                <element signature="e#7338#7339#0" expanded="true" />
+                <element signature="e#7371#7372#0" expanded="true" />
+                <element signature="e#7409#7410#0" expanded="true" />
+                <element signature="e#7441#7442#0" expanded="true" />
+                <element signature="e#7482#7483#0" expanded="true" />
+                <element signature="e#7517#7518#0" expanded="true" />
+                <element signature="e#7550#7551#0" expanded="true" />
+                <element signature="e#7582#7583#0" expanded="true" />
+                <element signature="e#7626#7627#0" expanded="true" />
+                <element signature="e#7670#7671#0" expanded="true" />
+                <element signature="e#10351#10352#0" expanded="true" />
+                <element signature="e#10445#10446#0" expanded="true" />
+                <element signature="e#10775#10802#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -60,8 +67,8 @@
       <file leaf-file-name="TransactionOutput.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/blockmatrix/TransactionOutput.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="19" selection-start-column="19" selection-end-column="19" />
+            <state relative-caret-position="102">
+              <caret line="6" column="64" selection-start-line="6" selection-start-column="64" selection-end-line="6" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -69,8 +76,8 @@
       <file leaf-file-name="Block.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/blockmatrix/Block.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="41">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            <state relative-caret-position="510">
+              <caret line="62" column="42" lean-forward="true" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -78,8 +85,8 @@
       <file leaf-file-name="Wallet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/blockmatrix/Wallet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="19" selection-start-column="19" selection-end-column="19" />
+            <state relative-caret-position="119">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -90,8 +97,14 @@
       <file leaf-file-name="Transaction.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/blockmatrix/Transaction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="58" selection-start-line="58" selection-end-line="58" />
+            <state relative-caret-position="255">
+              <caret line="120" column="32" lean-forward="true" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="32" />
+              <folding>
+                <element signature="e#4293#4294#0" expanded="true" />
+                <element signature="e#4331#4332#0" expanded="true" />
+                <element signature="e#4366#4367#0" expanded="true" />
+                <element signature="e#4404#4405#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,11 +118,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatrixChain.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MatrixChain.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/blockmatrix/MatrixChain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="58" column="75" selection-start-line="58" selection-start-column="75" selection-end-line="58" selection-end-column="75" />
+            <state relative-caret-position="431">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -151,8 +164,8 @@
         <option value="$PROJECT_DIR$/src/MatrixChain.java" />
         <option value="$PROJECT_DIR$/src/blockmatrix/Wallet.java" />
         <option value="$PROJECT_DIR$/src/blockmatrix/Transaction.java" />
-        <option value="$PROJECT_DIR$/src/blockmatrix/BlockMatrix.java" />
         <option value="$PROJECT_DIR$/src/blockmatrix/MatrixChain.java" />
+        <option value="$PROJECT_DIR$/src/blockmatrix/BlockMatrix.java" />
       </list>
     </option>
   </component>
@@ -175,6 +188,24 @@
             <path>
               <item name="blockmatrixRough" type="b2602c69:ProjectViewProjectNode" />
               <item name="blockmatrixRough" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blockmatrixRough" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blockmatrixRough" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blockmatrixRough" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blockmatrixRough" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="blockmatrixRough" type="b2602c69:ProjectViewProjectNode" />
+              <item name="blockmatrixRough" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
+              <item name="blockmatrix_jar" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="blockmatrixRough" type="b2602c69:ProjectViewProjectNode" />
@@ -384,8 +415,9 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3391877" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3809001" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3292683" />
+      <window_info anchor="right" id="Coverage" side_tool="true" weight="0.3297619" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
@@ -412,14 +444,26 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/blockmatrix/BlockMatrix.java</url>
-          <line>239</line>
-          <properties class="blockmatrix.BlockMatrix" method="generate">
+          <line>269</line>
+          <properties class="blockmatrix.BlockMatrix" method="isMatrixValid">
             <option name="EMULATED" value="true" />
           </properties>
-          <option name="timeStamp" value="38" />
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/blockmatrix/BlockMatrix.java</url>
+          <line>306</line>
+          <properties />
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/blockmatrix/MatrixChain.java</url>
+          <line>70</line>
+          <properties />
+          <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="40" />
+      <option name="time" value="44" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -682,13 +726,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/blockmatrix/StringUtil.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/blockmatrix/Wallet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
+        <state relative-caret-position="119">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -697,8 +738,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/blockmatrix/TransactionOutput.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
+        <state relative-caret-position="102">
+          <caret line="6" column="64" selection-start-line="6" selection-start-column="64" selection-end-line="6" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -709,37 +750,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/blockmatrix/Transaction.java">
+    <entry file="file://$PROJECT_DIR$/src/blockmatrix/StringUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        <state relative-caret-position="-840">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/blockmatrix/Block.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="510">
+          <caret line="62" column="42" lean-forward="true" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/blockmatrix/BlockMatrix.java">
+    <entry file="file://$PROJECT_DIR$/src/blockmatrix/Transaction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="350" lean-forward="true" selection-start-line="350" selection-end-line="350" />
+        <state relative-caret-position="255">
+          <caret line="120" column="32" lean-forward="true" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="32" />
           <folding>
-            <element signature="e#10200#10201#0" expanded="true" />
-            <element signature="e#10294#10295#0" expanded="true" />
+            <element signature="e#4293#4294#0" expanded="true" />
+            <element signature="e#4331#4332#0" expanded="true" />
+            <element signature="e#4366#4367#0" expanded="true" />
+            <element signature="e#4404#4405#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/blockmatrix/MatrixChain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="58" column="75" selection-start-line="58" selection-start-column="75" selection-end-line="58" selection-end-column="75" />
+        <state relative-caret-position="431">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/blockmatrix/BlockMatrix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="290" lean-forward="true" selection-start-line="290" selection-end-line="290" />
+          <folding>
+            <element signature="e#4367#4368#0" expanded="true" />
+            <element signature="e#4422#4423#0" expanded="true" />
+            <element signature="e#4568#4569#0" expanded="true" />
+            <element signature="e#4634#4635#0" expanded="true" />
+            <element signature="e#7338#7339#0" expanded="true" />
+            <element signature="e#7371#7372#0" expanded="true" />
+            <element signature="e#7409#7410#0" expanded="true" />
+            <element signature="e#7441#7442#0" expanded="true" />
+            <element signature="e#7482#7483#0" expanded="true" />
+            <element signature="e#7517#7518#0" expanded="true" />
+            <element signature="e#7550#7551#0" expanded="true" />
+            <element signature="e#7582#7583#0" expanded="true" />
+            <element signature="e#7626#7627#0" expanded="true" />
+            <element signature="e#7670#7671#0" expanded="true" />
+            <element signature="e#10351#10352#0" expanded="true" />
+            <element signature="e#10445#10446#0" expanded="true" />
+            <element signature="e#10775#10802#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -823,7 +892,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>com.google.code.gson:gson:2.8.5</last-edited>
+          <last-edited>org.bouncycastle:bcprov-jdk15on:1.59</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

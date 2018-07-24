@@ -11,6 +11,7 @@ public class Transaction {
     public PublicKey recipient; // Recipients address/public key.
     public float value;
     private String info;
+    private int blockNumber; // the block in which this transaction is stored
     public byte[] signature; // Prevents other people from spending funds in our wallet
 
     public ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
@@ -25,6 +26,7 @@ public class Transaction {
         this.value = value;
         this.inputs = inputs;
         this.info = info;
+        this.blockNumber = -1;
     }
 
     // This Calculates the transaction hash (which will be used as its Id)
@@ -109,6 +111,14 @@ public class Transaction {
     public void clearInfo() {
         this.info = "CLEARED";
         this.transactionId =  calculateHash();
+    }
+
+    public void setBlockNumber(int num) {
+        this.blockNumber = num;
+    }
+
+    public int getBlockNumber() {
+        return this.blockNumber;
     }
 
     @Override

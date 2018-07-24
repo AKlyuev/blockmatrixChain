@@ -18,29 +18,9 @@ public class MatrixChain {
 
         bm = new BlockMatrix(5);
         bm.setUpSecurity();
-        //add our blocks to the blockchain ArrayList:
-        //Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider()); //Setup Bouncey castle as a Security Provider
 
         //Create wallets:
         walletA = new Wallet();
-        /**
-        walletB = new Wallet();
-        Wallet coinbase = new Wallet();
-
-        //create genesis transaction, which sends 100 coins to walletA:
-        genesisTransaction = new Transaction(coinbase.publicKey, walletA.publicKey, 100f, null, null);
-        genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction
-        genesisTransaction.transactionId = "0"; //manually set the transaction id
-        genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.recipient, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
-        UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0)); //its important to store our first transaction in the UTXOs list.
-
-
-
-        System.out.println("Creating and Mining Genesis block... ");
-        Block genesis = new Block(true);
-        genesis.addTransaction(genesisTransaction);
-        addBlock(genesis);
-        **/
 
         bm.generate(walletA, 200f);
         System.out.println(bm);
@@ -55,6 +35,8 @@ public class MatrixChain {
         System.out.println("\nWalletA's balance is: " + walletA.getBalance());
         System.out.println("WalletB's balance is: " + walletB.getBalance());
 
+        System.out.println(bm.getBlockTransactions(2));
+
         Block block3 = new Block();
         System.out.println("\nWalletA Attempting to send more funds (1000) than it has...");
         block3.addTransaction(walletA.sendFunds(walletB.publicKey, 1000f, "This might be too many..."));
@@ -62,15 +44,28 @@ public class MatrixChain {
         System.out.println("\nWalletA's balance is: " + walletA.getBalance());
         System.out.println("WalletB's balance is: " + walletB.getBalance());
 
+        /**
         Block block4 = new Block();
         System.out.println("\nWalletB is Attempting to send funds (20) to WalletA...");
-        block4.addTransaction(walletB.sendFunds( walletA.publicKey, 20, "This is for the bananas!"));
+        block4.addTransaction(walletB.sendFunds( walletA.publicKey, 20f, "This is for the bananas!"));
         addBlock(block4);
         System.out.println("\nWalletA's balance is: " + walletA.getBalance());
         System.out.println("WalletB's balance is: " + walletB.getBalance());
+        **/
 
-        bm.clearInfoInBlock(4);
-        bm.clearInfoInBlock(2);
+        Block block5 = new Block();
+        //Transaction tr = walletA.sendFunds(walletB.publicKey, 30f, "Here is 30 coins back.");
+        block5.addTransaction(walletA.sendFunds(walletB.publicKey, 30f, "Here is 30 coins back."));
+        addBlock(block5);
+        System.out.println("\nWalletA's balance is: " + walletA.getBalance());
+        System.out.println("WalletB's balance is: " + walletB.getBalance());
+
+        Block block6 = new Block();
+        //Transaction tr = walletA.sendFunds(walletB.publicKey, 30f, "Here is 30 coins back.");
+        block6.addTransaction(walletA.sendFunds(walletB.publicKey, 40f, "Here is another 40 coins."));
+        addBlock(block6);
+        System.out.println("\nWalletA's balance is: " + walletA.getBalance());
+        System.out.println("WalletB's balance is: " + walletB.getBalance());
 
 
         System.out.println(bm.getBlocksWithModifiedData()); // Tells you which blocks have been modified
@@ -125,7 +120,7 @@ public class MatrixChain {
                     tempOutput = tempUTXOs.get(input.transactionOutputId);
 
                     if(tempOutput == null) {
-                        System.out.println("#Referenced input on Transaction(" + t + ") is Missing");
+                        System.out.println("#Referenced input on Transaction(" + t + ") in Block(" + i + ") is Missing");
                         return false;
                     }
 
