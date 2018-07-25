@@ -16,10 +16,10 @@ public class BlockMatrix {
     private Block[][] blockData;
     private String[] rowHashes;
     private String[] columnHashes;
-    public static float minimumTransaction = 0.1f;
-    public static int difficulty = 3;
-    public static Transaction genesisTransaction;
-    public static HashMap<String, TransactionOutput> UTXOs = new HashMap<>();
+    static float minimumTransaction;
+    private Transaction genesisTransaction;
+    static HashMap<String, TransactionOutput> UTXOs = new HashMap<>();
+    private boolean generated;
     private ArrayList<Integer> blocksWithModifiedData;
 
     public BlockMatrix(int dimension) {
@@ -30,8 +30,10 @@ public class BlockMatrix {
         this.blockData = new Block[dimension][dimension];
         this.rowHashes = new String[dimension];
         this.columnHashes = new String[dimension];
+        this.minimumTransaction = 0.1f;
         this.deletionValidity = true;
-        blocksWithModifiedData = new ArrayList<>();
+        this.generated = false;
+        this.blocksWithModifiedData = new ArrayList<>();
         for (int i = 0; i < dimension; i++) {
             updateRowHash(i);
             updateColumnHash(i);
@@ -39,7 +41,7 @@ public class BlockMatrix {
     }
 
     //adds a block to our blockmatrix
-    public void add(Block block) {
+    private void add(Block block) {
         inputCount++;
         if (inputCount > (dimension* dimension) - dimension) { //no more space in the matrix
             inputCount--;
@@ -112,7 +114,7 @@ public class BlockMatrix {
         columnHashes[column] = calculateColumnHash(column);
     }
 
-    public String calculateRowHash(int row) {
+    private String calculateRowHash(int row) {
         StringBuilder sb = new StringBuilder();
         for (int column = 0; column < dimension; column++) {
             if (row != column && blockData[row][column] != null) {
@@ -122,7 +124,7 @@ public class BlockMatrix {
         return StringUtil.applySha256(sb.toString());
     }
 
-    public String calculateColumnHash(int column) {
+    private String calculateColumnHash(int column) {
         StringBuilder sb = new StringBuilder();
         for (int row = 0; row < dimension; row++) {
             if (row != column && blockData[row][column] != null) {
@@ -192,11 +194,19 @@ public class BlockMatrix {
         return columnHashes;
     }
 
+    public void setMinimumTransaction(float num) {
+        minimumTransaction = num;
+    }
+
+    public float getMinimumTransaction() {
+        return minimumTransaction;
+    }
+
     public int getDimension() {
         return dimension;
     }
 
-    public boolean getDeletionValidity() {
+    private boolean getDeletionValidity() {
         return this.deletionValidity;
     }
 
@@ -240,6 +250,25 @@ public class BlockMatrix {
 
     //Creates, mines, and adds the genesis block to the blockmatrix
     public void generate(Wallet wallet, float value) {
+        if (!this.generated) {
+            Wallet coinbase = new Wallet();
+            //create genesis transaction, which sends coins to walletA:
+            genesisTransaction = new Transaction(coinbase.publicKey, wallet.publicKey, value, null, null);
+            genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction
+            genesisTransaction.transactionId = "0"; //manually set the transaction id
+            genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.recipient, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
+            UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0)); //its important to store our first transaction in the UTXOs list.
+
+
+            System.out.println("Creating and Mining Genesis block... ");
+            Block genesis = new Block(true);
+            genesis.addTransaction(genesisTransaction);
+            addBlock(genesis);
+            this.generated = true;
+        } else {
+            System.out.println("#Error: BlockMatrix already generated.");
+        }
+        /**
         Wallet coinbase = new Wallet();
         //create genesis transaction, which sends coins to walletA:
         genesisTransaction = new Transaction(coinbase.publicKey, wallet.publicKey, value, null, null);
@@ -253,6 +282,7 @@ public class BlockMatrix {
         Block genesis = new Block(true);
         genesis.addTransaction(genesisTransaction);
         addBlock(genesis);
+         **/
     }
 
     //mines and adds a block
@@ -269,7 +299,6 @@ public class BlockMatrix {
     //sees if our matrix has maintained its security, or if it has been tampered with
     public Boolean isMatrixValid() {
         Block currentBlock;
-        String hashTarget = new String(new char[difficulty]).replace('\0', '0');
         HashMap<String, TransactionOutput> tempUTXOs = new HashMap<String, TransactionOutput>(); //a temporary working list of unspent transactions at a given block state.
         tempUTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
 
@@ -281,6 +310,7 @@ public class BlockMatrix {
                 System.out.println("Hashes for Block " + i + " not equal (first instance of block with unequal hashes, there may be more)");
                 return false;
             }
+
             /**
              //check if hash is solved
              if(!currentBlock.getHash().substring( 0, difficulty).equals(hashTarget)) {

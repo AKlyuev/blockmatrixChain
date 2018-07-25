@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public class Transaction {
 
-    public String transactionId; // also the hash of the transaction.
-    public PublicKey sender; //senders address/public key
-    public PublicKey recipient; // Recipients address/public key.
-    public float value;
+    String transactionId; // also the hash of the transaction.
+    PublicKey sender; //senders address/public key
+    PublicKey recipient; // Recipients address/public key.
+    float value;
     private String info;
     private int blockNumber; // the block in which this transaction is stored
-    public byte[] signature; // Prevents other people from spending funds in our wallet
+    private byte[] signature; // Prevents other people from spending funds in our wallet
 
     public ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
     public ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
@@ -40,18 +40,18 @@ public class Transaction {
     }
 
     //Signs all the data we dont wish to be tampered with.
-    public void generateSignature(PrivateKey privateKey) {
+    void generateSignature(PrivateKey privateKey) {
         String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(recipient) + Float.toString(value)	;
         signature = StringUtil.applyECDSASig(privateKey,data);
     }
 
     //Verifies the data we signed hasnt been tampered with
-    public boolean verifySignature() {
+    boolean verifySignature() {
         String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(recipient) + Float.toString(value)	;
         return StringUtil.verifyECDSASig(sender, data, signature);
     }
 
-    public boolean processTransaction() {
+    boolean processTransaction() {
 
         if (verifySignature() == false) {
             System.out.println("Transaction Signature failed to verify");
@@ -90,7 +90,7 @@ public class Transaction {
     }
 
     //returns sum of inputs(UTXOs) values
-    public float getInputsValue() {
+    float getInputsValue() {
         float total = 0;
         for(TransactionInput i : inputs) {
             if(i.UTXO == null) continue; //if Transaction can't be found skip it
@@ -100,7 +100,7 @@ public class Transaction {
     }
 
     //returns sum of outputs:
-    public float getOutputsValue() {
+    float getOutputsValue() {
         float total = 0;
         for(TransactionOutput o : outputs) {
             total += o.value;
@@ -108,17 +108,41 @@ public class Transaction {
         return total;
     }
 
-    public void clearInfo() {
+    void clearInfo() {
         this.info = "CLEARED";
         this.transactionId =  calculateHash();
     }
 
-    public void setBlockNumber(int num) {
+    void setBlockNumber(int num) {
         this.blockNumber = num;
     }
 
     public int getBlockNumber() {
         return this.blockNumber;
+    }
+
+    public String getTransactionId() {
+        return this.transactionId;
+    }
+
+    public PublicKey getSender() {
+        return this.sender;
+    }
+
+    public PublicKey recipient() {
+        return this.recipient;
+    }
+
+    public float getValue() {
+        return this.value;
+    }
+
+    public String getInfo() {
+        return this.info;
+    }
+
+    public byte[] getSignature() {
+        return this.signature;
     }
 
     @Override

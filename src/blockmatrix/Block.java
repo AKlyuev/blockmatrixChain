@@ -19,17 +19,17 @@ public class Block {
         this.genesis = false;
     }
 
-    public Block(boolean genesis) {
+    Block(boolean genesis) {
         this.timeStamp = new Date().getTime();
         this.hash = calculateHash();
         this.genesis = genesis;
     }
 
-    public String calculateHash() {
+    String calculateHash() {
         return StringUtil.applySha256(Long.toString(timeStamp) + Integer.toString(nonce) + merkleRoot); // calculates and returns hash
     }
 
-    public void mineBlock() {
+    void mineBlock() {
         merkleRoot = StringUtil.getMerkleRoot(transactions);
         hash = calculateHash();
         System.out.println("Block Mined: " + hash);
@@ -71,7 +71,7 @@ public class Block {
 
     }
 
-    public void clearInfoInTransactionsInBlock() {
+    void clearInfoInTransactionsInBlock() {
         for (Transaction t: transactions) {
             t.clearInfo();
         }

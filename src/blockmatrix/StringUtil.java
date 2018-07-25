@@ -7,7 +7,7 @@ import java.util.Base64;
 
 public class StringUtil {
 
-    public static String applySha256(String input){
+    static String applySha256(String input){
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             //Applies sha256 to our input,
@@ -25,7 +25,7 @@ public class StringUtil {
         }
     }
     //Applies ECDSA Signature and returns the result ( as bytes ).
-    public static byte[] applyECDSASig(PrivateKey privateKey, String input) {
+    static byte[] applyECDSASig(PrivateKey privateKey, String input) {
         Signature dsa;
         byte[] output = new byte[0];
         try {
@@ -42,7 +42,7 @@ public class StringUtil {
     }
 
     //Verifies a String signature
-    public static boolean verifyECDSASig(PublicKey publicKey, String data, byte[] signature) {
+    static boolean verifyECDSASig(PublicKey publicKey, String data, byte[] signature) {
         try {
             Signature ecdsaVerify = Signature.getInstance("ECDSA", "BC");
             ecdsaVerify.initVerify(publicKey);
@@ -53,12 +53,12 @@ public class StringUtil {
         }
     }
 
-    public static String getStringFromKey(Key key) {
+    static String getStringFromKey(Key key) {
         return Base64.getEncoder().encodeToString(key.getEncoded());
     }
 
     //Takes an array of transactions and returns a merkle root.
-    public static String getMerkleRoot(ArrayList<Transaction> transactions) {
+    static String getMerkleRoot(ArrayList<Transaction> transactions) {
         int count = transactions.size();
         ArrayList<String> previousTreeLayer = new ArrayList<String>();
         for(Transaction transaction : transactions) {
@@ -77,10 +77,6 @@ public class StringUtil {
         return merkleRoot;
     }
 
-    //Returns difficulty string target, to compare to hash. eg difficulty of 5 will return "00000"
-    public static String getDifficultyString(int difficulty) {
-        return new String(new char[difficulty]).replace('\0', '0');
-    }
 
 
 
