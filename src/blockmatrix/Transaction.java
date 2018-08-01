@@ -14,13 +14,13 @@ public class Transaction {
     private int blockNumber; // the block in which this transaction is stored
     private byte[] signature; // Prevents other people from spending funds in our wallet
 
-    public ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
-    public ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
+    ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
+    ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
 
     private static int sequence = 0; // a rough count of how many transactions have been generated.
 
     // Constructor:
-    public Transaction(PublicKey from, PublicKey to, float value, ArrayList<TransactionInput> inputs, String info) {
+    Transaction(PublicKey from, PublicKey to, float value, ArrayList<TransactionInput> inputs, String info) {
         this.sender = from;
         this.recipient = to;
         this.value = value;
@@ -129,7 +129,7 @@ public class Transaction {
         return this.sender;
     }
 
-    public PublicKey recipient() {
+    public PublicKey getRecipient() {
         return this.recipient;
     }
 
@@ -143,6 +143,14 @@ public class Transaction {
 
     public byte[] getSignature() {
         return this.signature;
+    }
+
+    public ArrayList<TransactionInput> getInputs() {
+        return this.inputs;
+    }
+
+    public ArrayList<TransactionOutput> getOutputs() {
+        return this.outputs;
     }
 
     @Override

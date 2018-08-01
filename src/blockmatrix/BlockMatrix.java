@@ -86,11 +86,11 @@ public class BlockMatrix {
     }
 
     //the "delete" function, which will overwrite any message info passed in along with the transaction for every transaction in the block
-    public void clearInfoInBlock(int blockNumber) {
+    public void clearInfoInTransaction(int blockNumber, int transactionNumber) {
         this.blocksWithModifiedData.add(blockNumber);
         int row = getBlockRowIndex(blockNumber);
         int column = getBlockColumnIndex(blockNumber);
-        getBlock(blockNumber).clearInfoInTransactionsInBlock();
+        getBlock(blockNumber).clearInfoInTransactionsInBlock(transactionNumber);
         String[] prevRowHashes = this.getRowHashes().clone();
         String[] prevColumnHashes = this.getColumnHashes().clone();
         updateRowHash(row);

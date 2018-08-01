@@ -7,4 +7,12 @@ public class TransactionInput {
     TransactionInput(String transactionOutputId) {
         this.transactionOutputId = transactionOutputId;
     }
+
+    public String getTransactionOutputId() {
+        return this.transactionOutputId;
+    }
+
+    public TransactionOutput getUTXO() {
+        return this.UTXO;
+    }
 }

@@ -3,13 +3,13 @@ package blockmatrix;
 import java.security.PublicKey;
 
 public class TransactionOutput {
-    public String id;
-    public PublicKey recipient; // The new owner of these coins.
-    public float value; // The amount of coins they own
-    public String parentTransactionId; // The id of the transaction this output was created in
+    String id;
+    PublicKey recipient; // The new owner of these coins.
+    float value; // The amount of coins they own
+    private String parentTransactionId; // The id of the transaction this output was created in
 
     //Constructor
-    public TransactionOutput(PublicKey reciepient, float value, String parentTransactionId) {
+    TransactionOutput(PublicKey reciepient, float value, String parentTransactionId) {
         this.recipient = reciepient;
         this.value = value;
         this.parentTransactionId = parentTransactionId;
@@ -17,7 +17,24 @@ public class TransactionOutput {
     }
 
     //Check if coin belongs to you
-    public boolean isMine(PublicKey publicKey) {
+    boolean isMine(PublicKey publicKey) {
         return (publicKey == recipient);
     }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public PublicKey getRecipient() {
+        return this.recipient;
+    }
+
+    public float getValue() {
+        return this.value;
+    }
+
+    public String getParentTransactionId() {
+        return this.parentTransactionId;
+    }
+
 }

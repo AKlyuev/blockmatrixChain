@@ -71,10 +71,8 @@ public class Block {
 
     }
 
-    void clearInfoInTransactionsInBlock() {
-        for (Transaction t: transactions) {
-            t.clearInfo();
-        }
+    void clearInfoInTransactionsInBlock(int transactionNumber) {
+        transactions.get(transactionNumber).clearInfo();
         merkleRoot = StringUtil.getMerkleRoot(transactions);
         this.hash = calculateHash();
     }

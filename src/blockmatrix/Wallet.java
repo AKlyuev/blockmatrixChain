@@ -8,16 +8,16 @@ import java.util.Map;
 
 public class Wallet {
 
-    public PrivateKey privateKey;
-    public PublicKey publicKey;
+    PrivateKey privateKey;
+    PublicKey publicKey;
 
-    public HashMap<String, TransactionOutput> UTXOs = new HashMap<String, TransactionOutput>(); //only UTXOs owned by this wallet.
+    private HashMap<String, TransactionOutput> UTXOs = new HashMap<String, TransactionOutput>(); //only UTXOs owned by this wallet.
 
     public Wallet() {
         generateKeyPair();
     }
 
-    public void generateKeyPair() {
+    private void generateKeyPair() {
         try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
@@ -70,6 +70,18 @@ public class Wallet {
             UTXOs.remove(input.transactionOutputId);
         }
         return newTransaction;
+    }
+
+    public PrivateKey getPrivateKey() {
+        return this.privateKey;
+    }
+
+    public PublicKey getPublicKey() {
+        return this.publicKey;
+    }
+
+    public HashMap<String, TransactionOutput> getUTXOs() {
+        return this.UTXOs;
     }
 
 }
