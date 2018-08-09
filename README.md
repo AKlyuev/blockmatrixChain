@@ -20,7 +20,7 @@ Arsen Klyuev: akliouev1@gmail.com
 ## Setup 
 ### Installation
 To install the BlockMatrix package, navigate to out/artifacts/blockmatrix_jar/ and download the
-JAR file [blockmatrix.jar](out/artifacts/blockmatrix_jar). Include this jar file as an external library for your project.
+JAR file [blockmatrix.jar](out/artifacts/blockmatrix_jar/blockmatrix.jar). Include this jar file as an external library for your project.
 
 #### Dependencies
 You will need to import [Bouncy Castle](https://www.bouncycastle.org/download/bcprov-jdk15on-159.jar).
