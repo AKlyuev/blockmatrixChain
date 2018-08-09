@@ -11,7 +11,7 @@ Users can:
 * Pass funds along with a message to other user’s wallets
 * Modify messages passed along with transactions after blocks have been published
 
-I highly encourage viewing of the manual in the docs folder for information on the idea behind this package, and more information on how to use it. 
+I highly encourage viewing of the [manual](docs/manual.pdf) in the docs folder for information on the idea behind this package, and more information on how to use it. 
 
 *For any questions regarding the package, please contact:*
 
@@ -19,8 +19,8 @@ Arsen Klyuev: akliouev1@gmail.com
 
 ## Setup 
 ### Installation
-To install the BlockMatrix package, navigate to out/artifacts/blockmatrix_jar/ and download the
-JAR file [blockmatrix.jar](out/artifacts/blockmatrix_jar/blockmatrix.jar). Include this jar file as an external library for your project.
+To install the BlockMatrix package, download the
+JAR file from the [blockmatrix_jar](out/artifacts/blockmatrix_jar) folder. Include this jar file as an external library for your project.
 
 #### Dependencies
 You will need to import [Bouncy Castle](https://www.bouncycastle.org/download/bcprov-jdk15on-159.jar).
