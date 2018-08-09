@@ -64,4 +64,4 @@ blocks to the block matrix at your own discretion. **Note**: The steps in the ab
 be completed once. It is not possible to have multiple blockchains in one program using the
 package.
 
-Again, 
+Again, for more information, I highly recommend viewing the [manual](docs/Manual.pdf).
