@@ -9,11 +9,11 @@ public class TransactionOutput {
     private String parentTransactionId; // The id of the transaction this output was created in
 
     //Constructor
-    TransactionOutput(PublicKey reciepient, float value, String parentTransactionId) {
-        this.recipient = reciepient;
+    TransactionOutput(PublicKey recipient, float value, String parentTransactionId) {
+        this.recipient = recipient;
         this.value = value;
         this.parentTransactionId = parentTransactionId;
-        this.id = StringUtil.applySha256(StringUtil.getStringFromKey(reciepient)+Float.toString(value)+parentTransactionId);
+        this.id = StringUtil.applySha256(StringUtil.getStringFromKey(recipient)+Float.toString(value)+parentTransactionId);
     }
 
     //Check if coin belongs to you

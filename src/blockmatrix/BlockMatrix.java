@@ -80,10 +80,6 @@ public class BlockMatrix {
         return getBlock(blockNumber).getTransactions();
     }
 
-    public String getBlockData(int blockNumber) {
-        String transactionsJson = new GsonBuilder().setPrettyPrinting().create().toJson(getBlock(blockNumber).getTransactions());
-        return transactionsJson;
-    }
 
     //the "delete" function, which will overwrite any message info passed in along with the transaction for every transaction in the block
     public void clearInfoInTransaction(int blockNumber, int transactionNumber) {

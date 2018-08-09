@@ -19,7 +19,7 @@ public class Block {
         this.genesis = false;
     }
 
-    Block(boolean genesis) {
+    protected Block(boolean genesis) {
         this.timeStamp = new Date().getTime();
         this.hash = calculateHash();
         this.genesis = genesis;

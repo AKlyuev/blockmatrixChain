@@ -72,10 +72,6 @@ public class Wallet {
         return newTransaction;
     }
 
-    public PrivateKey getPrivateKey() {
-        return this.privateKey;
-    }
-
     public PublicKey getPublicKey() {
         return this.publicKey;
     }
