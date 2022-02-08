@@ -11,7 +11,7 @@ Users can:
 * Pass funds along with a message to other user’s wallets
 * Modify messages passed along with transactions after blocks have been published
 
-I highly encourage viewing of the [manual](docs/Manual.pdf) in the docs folder for information on the idea behind this package, and more information on how to use it. 
+I highly encourage viewing of the [manual](docs/Manual.pdf) in the docs folder for information on the idea behind this package, and more information on how to use it. This project was [presented](docs/BlockMatrices.pdf) to NIST, and was later presented to the 2018 IEEE Blockchain Summit (in slightly altered form). The link to the NIST block matrix repo can be found [here](https://github.com/usnistgov/blockmatrix).
 
 *For any questions regarding the package, please contact:*
 
